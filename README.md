@@ -2,7 +2,8 @@
 
 ## Contents
 1. [Task 1](#Task-1)
-2. [Task 2](#Task-2)
+1. [Task 2](#Task-2)
+1. [Task 3](#Task-3)
 
 ## Task 1
 For this task I was required to convert the word "us" into morse using the webserver provided.
@@ -18,7 +19,7 @@ Task 2 required me to use a binary tree (similar to the image below) to implemen
 
 <img src="./assets/img/morsecodetreetask2.png" alt="Morse Code Tree" width="600"/>
 
-**To run task 2 run the "Task 2/main.py" file. Ensure both "tree.py" and "morse.py" are in the same directory as "main.py".**
+**To run task 2, run the "Task 2/main.py" file. Ensure both "tree.py" and "morse.py" are in the same directory as "main.py".**
 
 Here is a screenshot of me running the file:
 
@@ -35,3 +36,5 @@ assert morse.encode('them') == '- .... . --', "Should be - .... . --"
 assert morse.decode('- .... . --') == 'them', "Should be them" 
 #WAS PREVIOUSLY assert morse.decode('..- ...') == 'us', "Should be us"
 ```
+
+## Task 3
