@@ -1,3 +1,18 @@
+#=====================================================================================================
+# FILE:                         morseunit.py
+# DATE LAST MODIFIED:           25/02/2021
+# MODIFICATION DESCRIPTION:     Added More Tests
+#=====================================================================================================
+# STUDENT NAME:                 JACOB ALLEN
+# STUDENT NUM:                  19003931
+#=====================================================================================================
+# MODULE NAME:                  Internet Of Things
+# MODULE CODE:                  UFCFVK-15-2
+# WORKSHEET:                    2 (Part 1)
+# WORKSHEET SPECIFICATION:      ../assets/Worksheet 2 Part 1.pdf
+#=====================================================================================================
+# GITLAB REPO:                  https://gitlab.uwe.ac.uk/j58-allen/iot-worksheet-2
+#=====================================================================================================
 import unittest
 import morse
 from tree import BinaryTree
