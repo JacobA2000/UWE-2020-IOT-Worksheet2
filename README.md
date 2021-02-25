@@ -38,3 +38,30 @@ assert morse.decode('- .... . --') == 'them', "Should be them"
 ```
 
 ## Task 3
+Task 3 required me to unit test the encode, decode and tree implementations. 
+
+The tests I ran are as follows:
+- Testing the encode & decode functions.
+    1. Encoding the word "us"
+    1. Decoding the word "us"
+    1. Encoding the word "them"
+    1. Decoding the word "them"
+    1. Encoding the sentence "this is a test"
+    1. Decoding the sentence "this is a test"
+    1. Encoding the number "1"
+    1. Decoding the number "1"
+    1. Encoding the symbol "$" (Expected to fail)
+    1. Decoding the symbol "$" (Expected to fail)
+- Testing the tree.
+    1. Checking an empty tree is correctly created.
+    1. Checking a non empty tree is correctly created.
+    1. Checking the insert function.
+    1. Checking the find functions.
+
+**To run the unit tests, run the "Task 3/morseunit.py" file. Ensure both "tree.py" and "morse.py" are in the same directory.**
+
+Here is a screenshot of me running the file:
+
+<img src="./assets/img/morseUnitTestingTask3.png" alt="Morse Task 3 Unit Testing" width="600"/>
+
+As you can see all but two tests pass. These 2 tests were expected to fail as I have not implemented symbols into my tree yet. This is the next task.
