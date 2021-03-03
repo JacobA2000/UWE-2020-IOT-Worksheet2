@@ -1,9 +1,9 @@
 # IOT-Worksheet-2
 
 ## Contents
-1. [Task 1](#Task-1)
-1. [Task 2](#Task-2)
-1. [Task 3](#Task-3)
+1. [Task 1](##Task-1)
+1. [Task 2](##Task-2)
+1. [Task 3](##Task-3)
 
 ## Task 1
 For this task I was required to convert the word "us" into morse using the webserver provided.
@@ -64,4 +64,4 @@ Here is a screenshot of me running the file:
 
 <img src="./assets/img/morseUnitTestingTask3.png" alt="Morse Task 3 Unit Testing" width="600"/>
 
-As you can see all but two tests pass. These 2 tests were expected to fail as I have not implemented symbols into my tree yet. This is the next task.
+As you can see all but two tests pass. These 2 tests were expected to fail as I have not implemented symbols into my tree yet. This will be implemented in the next task.
