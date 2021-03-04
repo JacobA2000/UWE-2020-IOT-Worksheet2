@@ -1,11 +1,12 @@
 # IOT-Worksheet-2
 
 ## Contents
-1. [Task 1](README.md#-Task-1)
-1. [Task 2](README.md#-Task-2)
-1. [Task 3](README.md#-Task-3)
+1. [Task 1](#Task-1-Explanation)
+1. [Task 2](#Task-2-Explanation)
+1. [Task 3](#Task-3-Explanation)
+1. [Task 4](#Task-4-Explanation)
 
-## Task 1
+## Task 1 Explanation
 For this task I was required to convert the word "us" into morse using the webserver provided.
 
 **The word us translated to morse code is ..- ...**
@@ -14,7 +15,7 @@ Here is a screenshot of the website running from the server via my machine.
 
 <img src="./assets/img/morsewebsite.png" alt="Morse Website" width="400"/>
 
-## Task 2
+## Task 2 Explanation
 Task 2 required me to use a binary tree (similar to the image below) to implement a morse code encoder/decoder.
 
 <img src="./assets/img/morsecodetreetask2.png" alt="Morse Code Tree" width="600"/>
@@ -37,7 +38,7 @@ assert morse.decode('- .... . --') == 'them', "Should be them"
 #WAS PREVIOUSLY assert morse.decode('..- ...') == 'us', "Should be us"
 ```
 
-## Task 3
+## Task 3 Explanation
 Task 3 required me to unit test the encode, decode and tree implementations. 
 
 The tests I ran are as follows:
@@ -66,7 +67,7 @@ Here is a screenshot of me running the file:
 
 As you can see all but two tests pass. These 2 tests were expected to fail as I have not implemented symbols into my tree yet. This will be implemented in the next task.
 
-## Task 4
+## Task 4 Explanation
 
 Task 4 required me to implement symbols into my binary tree. To do this I first created a new diagram to help me visualise how the new tree would look:
 
