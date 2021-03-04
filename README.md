@@ -1,9 +1,9 @@
 # IOT-Worksheet-2
 
 ## Contents
-1. [Task 1](#-Task-1)
-1. [Task 2](#-Task-2)
-1. [Task 3](#-Task-3)
+1. [Task 1](README.md#-Task-1)
+1. [Task 2](README.md#-Task-2)
+1. [Task 3](README.md#-Task-3)
 
 ## Task 1
 For this task I was required to convert the word "us" into morse using the webserver provided.
