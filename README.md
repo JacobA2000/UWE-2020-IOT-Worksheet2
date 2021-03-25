@@ -168,3 +168,101 @@ MORSE_CODE_DICT = { 'A':'.-', 'B':'-...',
                     '(':'-.--.', ')':'-.--.-'} 
 ```
 We could then create encode and decode functions that simply find the correct translation by searching the dictionary for the correct key or value. 
+
+# **Task 2**
+Task 2 required me to implement a system that encodes/decodes via the ham radio conversation standard.
+Todo this I implemented two functions, encode_ham and decode_ham
+```python
+#FUNCTION:      encode_ham(sender, reciever, msg)
+#PARAMS:        sender - String, reciever - String, msg - String
+#DESCRIPTION:   Will encode a msg to morse code from readable english using the ham radio conversation standard.
+#RETURNS:       encode(f"{reciever}de{sender}={msg}=(") - the encoded message.
+def encode_ham(sender, reciever, msg):
+    return encode(f"{reciever}de{sender}={msg}=(")
+
+#FUNCTION:      encode_ham(sender, reciever, msg)
+#PARAMS:        msg - String
+#DESCRIPTION:   Will decode morse code to readable english using the ham radio conversation standard.
+#RETURNS:       (sender, reciever, msg) - a tuple contianing the sender, reciever and decoded message.
+def decode_ham(msg):
+    decoded_morse = decode_bt(msg)
+    sender = decoded_morse.split("=")[0].split("de")[1]
+    reciever = decoded_morse.split("=")[0].split("de")[0]
+    msg = decoded_morse.split("=")[1]
+    return (sender, reciever, msg)
+```
+The encode function will convert a msg into an extendend notation morse string following the ham standard: 
+**receiver de sender msg**
+
+The decode function will take an encoded message and return a tuple containg the sender, reciever and message.
+
+I also added some more unit tests to test my implementation of the ham standard, these were: 
+
+```python
+#TESTING encode_ham AND decode_ham
+    #ALL OF THESE SHOULD PASS
+    def test_encode_ham_us(self):
+        self.assertEqual(morse.encode_ham('s1', 'r1', 'us'), '.-. .---- -.. . ... .---- -...- ..- ... -...- -.--.')
+    def test_decode_ham_us(self):
+        self.assertEqual(morse.decode_ham('.-. .---- -.. . ... .---- -...- ..- ... -...- -.--.'), ('s1', 'r1', 'us'))
+    
+    def test_encode_ham_them(self):
+        self.assertEqual(morse.encode_ham('s1', 'r1', 'them'), '.-. .---- -.. . ... .---- -...- - .... . -- -...- -.--.')
+    def test_decode_ham_them(self):
+        self.assertEqual(morse.decode_ham('.-. .---- -.. . ... .---- -...- - .... . -- -...- -.--.'), ('s1', 'r1', 'them'))
+
+    def test_encode_ham_sentence(self):
+        self.assertEqual(morse.encode_ham('s1', 'r1', 'this is a test'), '.-. .---- -.. . ... .---- -...- - .... .. ... / .. ... / .- / - . ... - -...- -.--.')
+    def test_decode_ham_sentence(self):
+        self.assertEqual(morse.decode_ham('.-. .---- -.. . ... .---- -...- - .... .. ... / .. ... / .- / - . ... - -...- -.--.'), ('s1', 'r1', 'this is a test'))
+
+    def test_encode_ham_number(self):
+        self.assertEqual(morse.encode_ham('s1', 'r1', '1'), '.-. .---- -.. . ... .---- -...- .---- -...- -.--.')
+    def test_decode_ham_number(self):
+        self.assertEqual(morse.decode_ham('.-. .---- -.. . ... .---- -...- .---- -...- -.--.'), ('s1', 'r1', '1'))
+
+    #TESTING THE SYMBOLS
+    def test_encode_ham_symbols(self):
+        self.assertEqual(morse.encode_ham('s1', 'r1', '.'), '.-. .---- -.. . ... .---- -...- .-.-.- -...- -.--.')
+        self.assertEqual(morse.encode_ham('s1', 'r1', '('), '.-. .---- -.. . ... .---- -...- -.--. -...- -.--.')
+        self.assertEqual(morse.encode_ham('s1', 'r1', '+'), '.-. .---- -.. . ... .---- -...- .-.-. -...- -.--.')
+        self.assertEqual(morse.encode_ham('s1', 'r1', '¿'), '.-. .---- -.. . ... .---- -...- ..-.- -...- -.--.')
+        self.assertEqual(morse.encode_ham('s1', 'r1', ','), '.-. .---- -.. . ... .---- -...- --..-- -...- -.--.')
+        self.assertEqual(morse.encode_ham('s1', 'r1', ')'), '.-. .---- -.. . ... .---- -...- -.--.- -...- -.--.')
+        self.assertEqual(morse.encode_ham('s1', 'r1', '-'), '.-. .---- -.. . ... .---- -...- -....- -...- -.--.')
+        self.assertEqual(morse.encode_ham('s1', 'r1', '¡'), '.-. .---- -.. . ... .---- -...- --...- -...- -.--.')
+        self.assertEqual(morse.encode_ham('s1', 'r1', '?'), '.-. .---- -.. . ... .---- -...- ..--. -...- -.--.')
+        self.assertEqual(morse.encode_ham('s1', 'r1', '&'), '.-. .---- -.. . ... .---- -...- .-... -...- -.--.')
+        self.assertEqual(morse.encode_ham('s1', 'r1', '_'), '.-. .---- -.. . ... .---- -...- ..--.- -...- -.--.')
+        self.assertEqual(morse.encode_ham('s1', 'r1', '\''), '.-. .---- -.. . ... .---- -...- .----. -...- -.--.')
+        self.assertEqual(morse.encode_ham('s1', 'r1', ':'), '.-. .---- -.. . ... .---- -...- ---... -...- -.--.')
+        self.assertEqual(morse.encode_ham('s1', 'r1', '"'), '.-. .---- -.. . ... .---- -...- .-..-. -...- -.--.')
+        self.assertEqual(morse.encode_ham('s1', 'r1', '!'), '.-. .---- -.. . ... .---- -...- -.-.-- -...- -.--.')
+        self.assertEqual(morse.encode_ham('s1', 'r1', ';'), '.-. .---- -.. . ... .---- -...- -.-.-. -...- -.--.')
+        self.assertEqual(morse.encode_ham('s1', 'r1', '$'), '.-. .---- -.. . ... .---- -...- ...-..- -...- -.--.')
+
+    def test_decode_ham_symbols(self):
+        self.assertEqual(morse.decode_ham('.-. .---- -.. . ... .---- -...- .-.-.- -...- -.--.'), ('s1', 'r1', '.'))
+        self.assertEqual(morse.decode_ham('.-. .---- -.. . ... .---- -...- -.--. -...- -.--.'), ('s1', 'r1', '('))
+        self.assertEqual(morse.decode_ham('.-. .---- -.. . ... .---- -...- .-.-. -...- -.--.'), ('s1', 'r1', '+'))
+        self.assertEqual(morse.decode_ham('.-. .---- -.. . ... .---- -...- ..-.- -...- -.--.'), ('s1', 'r1', '¿'))
+        self.assertEqual(morse.decode_ham('.-. .---- -.. . ... .---- -...- --..-- -...- -.--.'), ('s1', 'r1', ','))
+        self.assertEqual(morse.decode_ham('.-. .---- -.. . ... .---- -...- -.--.- -...- -.--.'), ('s1', 'r1', ')'))
+        self.assertEqual(morse.decode_ham('.-. .---- -.. . ... .---- -...- -....- -...- -.--.'), ('s1', 'r1', '-'))
+        self.assertEqual(morse.decode_ham('.-. .---- -.. . ... .---- -...- --...- -...- -.--.'), ('s1', 'r1', '¡'))
+        self.assertEqual(morse.decode_ham('.-. .---- -.. . ... .---- -...- ..--. -...- -.--.'), ('s1', 'r1', '?'))
+        self.assertEqual(morse.decode_ham('.-. .---- -.. . ... .---- -...- .-... -...- -.--.'), ('s1', 'r1', '&'))
+        self.assertEqual(morse.decode_ham('.-. .---- -.. . ... .---- -...- ..--.- -...- -.--.'), ('s1', 'r1', '_'))
+        self.assertEqual(morse.decode_ham('.-. .---- -.. . ... .---- -...- .----. -...- -.--.'), ('s1', 'r1', '\''))
+        self.assertEqual(morse.decode_ham('.-. .---- -.. . ... .---- -...- ---... -...- -.--.'), ('s1', 'r1', ':'))
+        self.assertEqual(morse.decode_ham('.-. .---- -.. . ... .---- -...- .-..-. -...- -.--.'), ('s1', 'r1', '"'))
+        self.assertEqual(morse.decode_ham('.-. .---- -.. . ... .---- -...- -.-.-- -...- -.--.'), ('s1', 'r1', '!'))
+        self.assertEqual(morse.decode_ham('.-. .---- -.. . ... .---- -...- -.-.-. -...- -.--.'), ('s1', 'r1', ';'))
+        self.assertEqual(morse.decode_ham('.-. .---- -.. . ... .---- -...- ...-..- -...- -.--.'), ('s1', 'r1', '$'))
+```
+
+**To run the unit tests, run the "Part 2/Task 2/morseunit.py" file. Ensure both "tree.py" and "morse.py" are in the same directory.**
+
+<img src="./assets/img/morsePart2Task2Unittests.png" alt="Morse Task 3 Unit Testing" width="600px"/>
+
+As you can see all tasks pass.
