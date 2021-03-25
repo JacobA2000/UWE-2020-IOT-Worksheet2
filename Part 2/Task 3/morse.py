@@ -14,6 +14,9 @@
 # GITLAB REPO:                  https://gitlab.uwe.ac.uk/j58-allen/iot-worksheet-2
 #=====================================================================================================
 from tree import *
+import asyncio
+import websockets
+import json
 
 #The list of letters and morsecode to place into the trees.
 morseLetters = [
@@ -204,8 +207,64 @@ def decode_ham(msg):
     msg = decoded_morse.split("=")[1]
     return (sender, reciever, msg)
 
-def send_echo(sender, msg):
-    return
-    
-def send_time(sender):
-    return
+async def send_echo(sender, msg):
+    uri = "ws://localhost:10102"
+    async with websockets.connect(uri) as websocket:
+        # After joining server will send client unique id.
+        message = json.loads(await websocket.recv())
+        # Get the client_id from the join message
+        if message['type'] == 'join_evt':
+            client_id = message['client_id']
+        else:
+            # If first message is not the join message exit
+            print("Did not receive a correct join message")
+
+        async def send_message(websocket, message, client_id):
+            outward_message = {
+                'client_id': client_id,
+                'type': 'morse_evt',
+                'payload': message
+            }
+            await websocket.send(json.dumps(outward_message))
+
+        async def recv_message(websocket):
+            message = json.loads(await websocket.recv())
+            return message['payload']
+
+        # Send a ping to the server
+        await send_message(websocket, encode_ham(sender, 'echo', msg), client_id)
+        # Wait for the 'ping' response from the server
+        response = await recv_message(websocket)
+
+        return decode_ham(response)
+
+async def send_time(sender):
+    uri = "ws://localhost:10102"
+    async with websockets.connect(uri) as websocket:
+        # After joining server will send client unique id.
+        message = json.loads(await websocket.recv())
+        # Get the client_id from the join message
+        if message['type'] == 'join_evt':
+            client_id = message['client_id']
+        else:
+            # If first message is not the join message exit
+            print("Did not receive a correct join message")
+
+        async def send_message(websocket, message, client_id):
+            outward_message = {
+                'client_id': client_id,
+                'type': 'morse_evt',
+                'payload': message
+            }
+            await websocket.send(json.dumps(outward_message))
+
+        async def recv_message(websocket):
+            message = json.loads(await websocket.recv())
+            return message['payload']
+
+        # Send a ping to the server
+        await send_message(websocket, encode_ham(sender, 'time', 'hello world'), client_id)
+        # Wait for the 'ping' response from the server
+        response = await recv_message(websocket)
+        
+        return decode_ham(response)

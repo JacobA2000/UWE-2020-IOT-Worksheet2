@@ -8,6 +8,8 @@
     1. Task 4
 1. Part 2
     1. Task 1
+    1. Task 2
+    1. Task 3
 
 # **Part 1**
 
@@ -139,7 +141,7 @@ After implementing this I then added some more unit tests for decoding to test m
 **To run the unit tests, run the "Part 2/Task 1/morseunit.py" file. Ensure both "tree.py" and "morse.py" are in the same directory.**
 
 All these tests successfully pass meaning the implementation should be correct.
-<img src="./assets/img/binaryHeapTask1.png" alt="Morse Task 3 Unit Testing" width="600px"/>
+<img src="./assets/img/binaryHeapTask1.png" alt="Morse Task 1 Unit Testing" width="600px"/>
 
 ### **Why use a binary heap over the tree?**
 A binary heap by definition is essentailly a complete binary tree this means that it is balanced. However a heap is unordered. A heap will have a guaranteed insert/removal time of O(log(n)) wheras for a binary tree it may take a longer amount of time up to O(n).
@@ -169,7 +171,7 @@ MORSE_CODE_DICT = { 'A':'.-', 'B':'-...',
 ```
 We could then create encode and decode functions that simply find the correct translation by searching the dictionary for the correct key or value. 
 
-# **Task 2**
+# **Task 2 Explanation**
 Task 2 required me to implement a system that encodes/decodes via the ham radio conversation standard.
 Todo this I implemented two functions, encode_ham and decode_ham
 ```python
@@ -263,6 +265,29 @@ I also added some more unit tests to test my implementation of the ham standard,
 
 **To run the unit tests, run the "Part 2/Task 2/morseunit.py" file. Ensure both "tree.py" and "morse.py" are in the same directory.**
 
-<img src="./assets/img/morsePart2Task2Unittests.png" alt="Morse Task 3 Unit Testing" width="600px"/>
+<img src="./assets/img/morsePart2Task2Unittests.png" alt="Morse Task 2 Unit Testing" width="600px"/>
 
 As you can see all tasks pass.
+
+# **Task 3 Explanation**
+Task 3 required me to connect to the local server using a websocket and implement two functions, send_echo and send_time.
+
+send echo would echo back the message in ham format, and send time would return the current time also in ham format.
+
+I decode the ham format for the responses from both these functions before returning them.
+
+To test this implementation I added 2 more test cases to my morseunit file, these were:
+```python
+#TESTING THE WEBSOCKET INTEGRATION
+    def test_send_echo(self):
+        self.assertEqual(asyncio.run(morse.send_echo("s", "test")), ('echo', 's', 'test'))
+
+    def test_send_time(self):
+        startTime = datetime.datetime.now().strftime("%H:%M:%S")
+        self.assertEqual(asyncio.run(morse.send_time("s")), ('time', 's', startTime))
+```
+
+**To run the unit tests, run the "Part 2/Task 3/morseunit.py" file. Ensure both "tree.py" and "morse.py" are in the same directory.**
+<img src="assets/img/part2task3unittests.png" alt="Morse Task 3 Unit Testing" width="600px"/>
+
+Both of these tests should pass.
