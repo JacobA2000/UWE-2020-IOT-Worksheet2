@@ -283,11 +283,12 @@ To test this implementation I added 2 more test cases to my morseunit file, thes
         self.assertEqual(asyncio.run(morse.send_echo("s", "test")), ('echo', 's', 'test'))
 
     def test_send_time(self):
-        startTime = datetime.datetime.now().strftime("%H:%M:%S")
-        self.assertEqual(asyncio.run(morse.send_time("s")), ('time', 's', startTime))
+        startTimeGMT = time.strftime("%H:%M:%S", time.gmtime())
+        self.assertEqual(asyncio.run(morse.send_time("s")), ('time', 's', startTimeGMT))
+        
 ```
 
 **To run the unit tests, run the "Part 2/Task 3/morseunit.py" file. Ensure both "tree.py" and "morse.py" are in the same directory.**
 <img src="assets/img/part2task3unittests.png" alt="Morse Task 3 Unit Testing" width="600px"/>
 
-Both of these tests should pass.
+**NOTE: the time sent back by the server is in the GMT timezone and therefore we need to test for the GMT timezone instead of UTC.** 

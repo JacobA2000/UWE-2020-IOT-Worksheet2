@@ -17,7 +17,7 @@ import unittest
 import morse
 from tree import BinaryTree
 import asyncio
-import datetime
+import time
 
 class TestMorse(unittest.TestCase):
 #TESTING MORSE ENCODE AND DECODE USING THE TREE.
@@ -180,9 +180,9 @@ class TestMorse(unittest.TestCase):
         self.assertEqual(asyncio.run(morse.send_echo("s", "test")), ('echo', 's', 'test'))
 
     def test_send_time(self):
-        startTime = datetime.datetime.now().strftime("%H:%M:%S")
-        self.assertEqual(asyncio.run(morse.send_time("s")), ('time', 's', startTime))
-
+        startTimeGMT = time.strftime("%H:%M:%S", time.gmtime())
+        self.assertEqual(asyncio.run(morse.send_time("s")), ('time', 's', startTimeGMT))
+        
 #TESTING THE TREE.
     def test_empty_tree(self):
         empty_tree = BinaryTree("")
